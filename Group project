@@ -1,0 +1,256 @@
+#include<iostream> 
+#include<vector> 
+#include<cstdlib> 
+#include<string> 
+#include<fstream>
+ 
+using namespace std; 
+
+class Group
+{
+public:
+string group;
+};
+class Student:public Group
+{ 
+public:
+int  id; 
+string surname;
+string name; 
+string adresa;
+};
+class Visiting: public Student
+{
+public:	
+string dateofregistration; 
+int visiting; 
+string cause; 
+
+void unwrite()
+
+{
+	
+	
+	int DeleteNumber;
+	cout<<"Input student number you want to delete: "<<endl;
+	cin>>DeleteNumber;
+	
+	int n = 0 ;
+	ifstream input_file("text.txt");
+	char letter;
+	while (! input_file.eof()){
+	letter = input_file.get();
+	if(letter ==';'){
+		n++;
+	}
+	}
+	input_file.close();
+	
+	
+	int i;
+	ifstream fin("text.txt");
+	Visiting object[n];
+	for( i=0;i<n;i++){ 
+		fin>>object[i].id;
+			if(DeleteNumber == object[i].id){
+				continue;
+    		}
+		object[i].id;
+		fin>>object[i].group;
+		fin>>object[i].surname;
+		fin>>object[i].name;
+		fin>>object[i].dateofregistration;
+		fin>>object[i].visiting;
+		fin>>object[i].cause;
+		fin>>object[i].adresa;
+		fin.ignore(1);
+	}
+fin.close();
+
+int temp = n-1;
+ofstream fout("text.txt");
+for( int j = 0;j < temp; j++){
+	fout<<object[j].id<<" ";
+	fout<<object[j].group<<" ";
+	fout<<object[j].surname<<" ";
+	fout<<object[j].name<<" ";
+	fout<<object[j].dateofregistration<<" ";
+	fout<<object[j].visiting<<" ";
+	fout<<object[j].cause<<" ";
+	fout<<object[j].adresa<<";"<<endl;
+} 	
+	 
+	cout<<"Succesfully deleted!";
+	 
+fout.close();	 
+	 
+}
+
+void add()
+
+{	
+	Visiting object;
+	
+	ofstream fout("text.txt", ios_base::app);
+	fout<<endl;
+	cout<<endl<<"------------------------------------"<<endl;
+	cout<<"Enter student number: "<<endl;
+	cin>>object.id;
+	fout<<object.id<<" ";
+	cout<<"Enter student group: "<<endl;
+	cin>>object.group;
+	fout<<object.group<<" ";
+	cout<<"Enter student surname: "<<endl;
+	cin>>object.surname;
+	fout<<object.surname<<" ";
+	cout<<"Enter student name: "<<endl;
+	cin>>object.name;
+	fout<<object.name<<" ";
+	cout<<"Enter student dateofregistration: "<<endl;
+	cin>>object.dateofregistration;
+	fout<<object.dateofregistration<<" ";
+	cout<<"Enter student number of hours left: "<<endl;
+	cin>>object.visiting;
+	fout<<object.visiting<<" ";
+	cout<<"Enter the cause student was left: "<<endl;
+	cin>>object.cause;
+	fout<<object.cause<<" ";
+	cout<<"Enter student adress: "<<endl;
+	cin>>object.adresa;
+	fout<<object.adresa<<";";
+	cout<<"------------------------------------"<<endl;
+	
+	fout.close();
+}
+
+
+
+
+
+void read() { 
+int n = 0 ;
+ifstream input_file("text.txt");
+char letter;
+while (! input_file.eof()){
+	letter = input_file.get();
+	if(letter ==';'){
+		n++;
+	}
+}
+
+
+int i;
+ifstream fin("text.txt");
+Visiting object[n];
+for( i=0;i<n;i++) { 
+	fin>>object[i].id; 
+	fin>>object[i].group;
+	fin>>object[i].surname;
+	fin>>object[i].name;
+	fin>>object[i].dateofregistration;
+	fin>>object[i].visiting;
+	fin>>object[i].cause;
+	fin>>object[i].adresa;
+	fin.ignore(1);
+
+	cout<< object[i].id<<" ";
+	cout<< object[i].group<<" ";
+	cout<< object[i].surname<<" ";
+	cout<< object[i].name<<" ";
+	cout<< object[i].dateofregistration<<" ";
+	cout<< object[i].visiting<<" ";
+	cout<< object[i].cause<<" ";
+	cout<< object[i].adresa<<" "<<endl;
+} 
+}
+
+
+int search(){     
+	int SearchId;
+	cout<<"Input student id you wnat to search: "<<endl;
+	cin>>SearchId;
+	
+	
+	int n = 0 ;
+ifstream input_file("text.txt");
+char letter;
+while (! input_file.eof()){
+	letter = input_file.get();
+	if(letter ==';'){
+		n++;
+	}
+}
+
+	
+
+	int i, k=1;
+	ifstream fin("text.txt");
+	Visiting object[n];
+	for( i=0;i<n;i++) {
+	fin>>object[i].id; 
+	fin>>object[i].group;
+	fin>>object[i].surname;
+	fin>>object[i].name;
+	fin>>object[i].dateofregistration;
+	fin>>object[i].visiting;
+	fin>>object[i].cause;
+	fin>>object[i].adresa;
+	fin.ignore(1);
+		if (object[i].id == SearchId){
+		    k=0;
+			cout<<object[i].id<<" ";
+			cout<<object[i].group<<" ";
+			cout<<object[i].surname<<" ";
+			cout<<object[i].name<<" ";
+			cout<<object[i].dateofregistration<<" ";
+			cout<<object[i].visiting<<" ";
+			cout<<object[i].cause<<" ";
+			cout<<object[i].adresa<<" "<<endl;
+		}
+	}
+	
+	if (k==1){
+		cout<<"NOT FOUND";
+		return 0;
+	}
+} 
+}; 
+
+
+int main()
+{ 
+ifstream fin("text.txt");
+while(1)
+{
+
+	int option;
+	cout<<endl<<"Enter 1 to view students"<<endl;
+	cout<<"Enter 2 to add student"<<endl;
+	cout<<"Enter 3 to delete student"<<endl;
+	cout<<"Enter 4 to search student"<<endl;
+	cin>>option;
+
+	if(option == 1){
+		int n = 0;
+		Visiting object[n];
+		object[n].read();
+	}
+	else if(option == 2){
+			Visiting object;
+			object.add();
+	}
+	else if(option == 3){
+			Visiting object;
+			object.unwrite();
+	}
+
+ 	else if(option == 4){
+			Visiting object;
+			object.search();
+	}
+	else{
+		cout<<"WRONG VALUE!"<<endl;
+	}
+}
+return 0;	
+}
